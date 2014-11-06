@@ -2,4 +2,8 @@
 <resources>
     <style name="AppTheme" parent="android:Theme.Material.Light">
     </style>
+
+    <style name="CardViewStyle" parent="CardView.Light">
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+    </style>
 </resources>
