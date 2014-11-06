@@ -69,6 +69,9 @@ public class LoginActivity extends ActionBarActivity {
                 ApplicationPreference.saveApiToken(getApplicationContext(), et_token.getText().toString());
 
                 startMainActiity();
+
+                // ログイン画面は終了
+                finish();
             } else {
                 // TODO: 余力があれば、表示するToastをモダンなものにする（ライブラリ使って）
                 Toast.makeText(getApplicationContext(), R.string.login_check_error, Toast.LENGTH_SHORT).show();
