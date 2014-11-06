@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">ChatworkVisor</string>
+    <string name="action_settings">設定</string>
+
+    <string name="api_token">APIトークンを入力してください</string>
+
+</resources>
