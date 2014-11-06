@@ -20,6 +20,7 @@
         android:layout_below="@id/et_token"
         android:layout_alignRight="@id/et_token"
         android:text="@string/login_button"
+        android:onClick="onLoginEvent"
         />
 
 </RelativeLayout>

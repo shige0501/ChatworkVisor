@@ -5,6 +5,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -19,6 +20,8 @@ public class MainActivity extends ActionBarActivity {
             startLoginActiity();
             // 画面は終了する
             finish();
+        } else {
+            Toast.makeText(this, R.string.login_ok, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -28,7 +31,7 @@ public class MainActivity extends ActionBarActivity {
     private void startLoginActiity() {
         Intent loginIntent = new Intent(this, LoginActivity.class);
         loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivityForResult(loginIntent, ApplicationPreference.REQUEST_CODE_LOGIN);
+        startActivity(loginIntent);
     }
 
 

@@ -3,9 +3,11 @@
 
     <string name="app_name">ChatworkVisor</string>
     <string name="action_settings">設定</string>
+    <string name="login_ok">ログインに成功しました</string>
 
     <string name="title_activity_login">Sign in</string>
     <string name="login_token">APIトークンを入力してください</string>
     <string name="login_button">ログイン</string>
+    <string name="login_check_error">APIトークンが間違っています。</string>
 
 </resources>

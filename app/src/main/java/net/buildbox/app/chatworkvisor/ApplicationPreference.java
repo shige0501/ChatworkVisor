@@ -29,6 +29,7 @@ public class ApplicationPreference {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = pref.edit();
         editor.putString(KEY_API_TOKEN, apiToken);
+        editor.commit();
     }
 
     /**
