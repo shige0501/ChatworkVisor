@@ -1,5 +1,6 @@
 package net.buildbox.app.chatworkvisor;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,6 +13,22 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // APIトークンの有無をチェックし、なければログイン画面を呼び出す
+        if (!ApplicationPreference.isApiToken(this)) {
+            startLoginActiity();
+            // 画面は終了する
+            finish();
+        }
+    }
+
+    /**
+     * ログイン画面の呼び出し
+     */
+    private void startLoginActiity() {
+        Intent loginIntent = new Intent(this, LoginActivity.class);
+        loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivityForResult(loginIntent, ApplicationPreference.REQUEST_CODE_LOGIN);
     }
 
 
