@@ -5,10 +5,15 @@
     <string name="action_settings">設定</string>
     <string name="action_logout">ログアウト</string>
     <string name="login_ok">ログインに成功しました</string>
-
-    <string name="title_activity_login">Sign in</string>
+    <string name="title_activity_login">ログイン</string>
     <string name="login_token">APIトークンを入力してください</string>
     <string name="login_button">ログイン</string>
     <string name="login_check_error">APIトークンが間違っています。</string>
+    <string name="title_activity_message">メッセージの送信</string>
+
+    <string name="message_send_text">送信したいテキストを入力してください</string>
+    <string name="message_send_button">送信</string>
+    <string name="message_send_positive">メッセージの送信に成功しました</string>
+    <string name="message_send_negative">メッセージの送信に失敗しました</string>
 
 </resources>

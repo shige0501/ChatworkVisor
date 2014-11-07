@@ -5,4 +5,6 @@
 
     <dimen name="card_view_width">72dp</dimen>
     <dimen name="card_view_height">64dp</dimen>
+
+    <dimen name="message_text_edit">128dp</dimen>
 </resources>

@@ -20,10 +20,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
+ * チャットルームの取得
+ *
  * Created by shige on 11/7/14.
  */
 public class ChatworkRooms {
-    // APIトークンでログイン可能かどうかを/my/statusを使って確認する
     private static final String REQUEST_URL = "https://api.chatwork.com/v1/rooms";
 
     private Context mContext = null;
@@ -65,12 +66,8 @@ public class ChatworkRooms {
         protected void onPostExecute(ArrayList<RoomData> result) {
             super.onPostExecute(result);
 
-            // 自分が持つステータスの取得結果を返す
-            if (result != null) {
-                _ChatworkRoomsCallBacks.onGetStatus(result);
-            } else {
-                _ChatworkRoomsCallBacks.onGetStatus(null);
-            }
+            // チャットルーム一覧を返す
+            _ChatworkRoomsCallBacks.onGetStatus(result);
         }
 
         @Override

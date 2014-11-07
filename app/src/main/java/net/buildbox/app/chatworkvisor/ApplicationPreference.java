@@ -6,7 +6,7 @@ import android.preference.Preference;
 import android.preference.PreferenceManager;
 
 /**
- * APIトークンの格納
+ * アプリケーションの共通情報の格納
  *
  * Created by shige on 11/6/14.
  */
@@ -14,8 +14,8 @@ public class ApplicationPreference {
     // APIトークン格納用のキー
     private static final String KEY_API_TOKEN = "api_token";
 
-    // ログイン時の画面遷移RequestCode
-    public static final int REQUEST_CODE_LOGIN = 1000;
+    // メッセージ送信時のチャットルームID格納キー
+    public static final String KEY_ROOM_ID = "room_id";
 
     /**
      * APIトークンの格納
