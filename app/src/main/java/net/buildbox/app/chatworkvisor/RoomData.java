@@ -8,8 +8,27 @@ import android.graphics.Bitmap;
  * Created by shige on 11/7/14.
  */
 public class RoomData {
+    private String roomId;
     private Bitmap roomImage;
     private String roomName;
+
+    /**
+     * ルームIDの設定
+     *
+     * @param id    ルームID
+     */
+    public void setRoomId(String id) {
+        roomId = id;
+    }
+
+    /**
+     * ルームIDの取得
+     *
+     * @return  ルームID
+     */
+    public String getRoomId() {
+        return roomId;
+    }
 
     /**
      * チャットルーム画像の設定
@@ -20,14 +39,29 @@ public class RoomData {
         roomImage = image;
     }
 
+    /**
+     * チャットルーム画像の取得
+     *
+     * @return  チャットルーム画像
+     */
     public Bitmap getRoomImage() {
         return roomImage;
     }
 
+    /**
+     * チャットルーム名の設定
+     *
+     * @param name  チャットルーム名
+     */
     public void setRoomName(String name) {
         roomName = name;
     }
 
+    /**
+     * チャットルーム名の取得
+     *
+     * @return  チャットルーム名
+     */
     public String getRoomName() {
         return roomName;
     }

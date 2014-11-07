@@ -34,14 +34,10 @@ public class MainActivity extends ActionBarActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
 
-        // アダプタの設定
-        RoomData roomData = new RoomData();
-        roomData.setRoomImage(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher));
-        roomData.setRoomName("チャットルーム");
-
-        ArrayList<RoomData> roomList = new ArrayList<RoomData>();
-        roomList.add(roomData);
-        recyclerView.setAdapter(new RoomAdapter(this, roomList));
+        // チャットルーム一覧の取得
+        ChatworkRooms chatworkRooms = new ChatworkRooms(this);
+        chatworkRooms.setCallbacks(mRoomCallbacks);
+        chatworkRooms.getRooms(ApplicationPreference.loadApiToken(this));
     }
 
     /**
@@ -80,4 +76,12 @@ public class MainActivity extends ActionBarActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    private ChatworkRooms.ChatworkRoomsCallbacks mRoomCallbacks = new ChatworkRooms.ChatworkRoomsCallbacks() {
+        @Override
+        public void onGetStatus(ArrayList<RoomData> result) {
+            RecyclerView recyclerView = (RecyclerView) findViewById(R.id.roomview);
+            recyclerView.setAdapter(new RoomAdapter(getApplicationContext(), result));
+        }
+    };
 }

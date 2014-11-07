@@ -1,6 +1,8 @@
 package net.buildbox.app.chatworkvisor;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 
 import org.apache.http.HttpResponse;
@@ -9,7 +11,11 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -30,7 +36,7 @@ public class ChatworkRooms {
      * コールバック処理の実装
      */
     public interface ChatworkRoomsCallbacks {
-        public void onGetStatus(boolean result);
+        public void onGetStatus(ArrayList<RoomData> result);
     }
     private ChatworkRoomsCallbacks _ChatworkRoomsCallBacks;
     public void setCallbacks(ChatworkRoomsCallbacks callbacks) {
@@ -42,10 +48,10 @@ public class ChatworkRooms {
         new ChatworkRoomsTask().execute(apiToken);
     }
 
-    private class ChatworkRoomsTask extends AsyncTask<String, Integer, Boolean> {
+    private class ChatworkRoomsTask extends AsyncTask<String, Integer, ArrayList<RoomData>> {
 
         @Override
-        protected Boolean doInBackground(String... params) {
+        protected ArrayList<RoomData> doInBackground(String... params) {
             // チャットルームの取得
             return fetchRoomList(params[0]);
         }
@@ -56,14 +62,14 @@ public class ChatworkRooms {
         }
 
         @Override
-        protected void onPostExecute(Boolean result) {
+        protected void onPostExecute(ArrayList<RoomData> result) {
             super.onPostExecute(result);
 
             // 自分が持つステータスの取得結果を返す
-            if (result == Boolean.TRUE) {
-                _ChatworkRoomsCallBacks.onGetStatus(true);
+            if (result != null) {
+                _ChatworkRoomsCallBacks.onGetStatus(result);
             } else {
-                _ChatworkRoomsCallBacks.onGetStatus(false);
+                _ChatworkRoomsCallBacks.onGetStatus(null);
             }
         }
 
@@ -73,9 +79,9 @@ public class ChatworkRooms {
         }
     }
 
-    // 自分が持つステータスの取得
-    private Boolean fetchRoomList(String apiToken) {
-        Boolean retStatus = false;
+    // チャットルーム情報の取得
+    private ArrayList<RoomData> fetchRoomList(String apiToken) {
+        ArrayList<RoomData> retStatus = null;
 
         // HTTPの要求
         HttpClient httpClient = new DefaultHttpClient();
@@ -99,13 +105,44 @@ public class ChatworkRooms {
         int status = resHttp.getStatusLine().getStatusCode();
         if (HttpStatus.SC_OK == status) {
             // 認証成功
-            retStatus = Boolean.TRUE;
+            try {
+                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                resHttp.getEntity().writeTo(outputStream);
+                String jsonData = outputStream.toString();
+
+                // チャットルーム一覧の取得
+                retStatus = extractRoomInfo(jsonData);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
         } else if(HttpStatus.SC_UNAUTHORIZED == status) {
-            //　認証に失敗した場合は、falseを返す
-            retStatus = Boolean.FALSE;
+            //　認証に失敗した場合は、nullを返す
         }
 
 
         return retStatus;
+    }
+
+    // チャットルーム一覧のJSONデータからルーム画像とルーム名の取得
+    private ArrayList<RoomData> extractRoomInfo(String jsonData) {
+        ArrayList<RoomData> roomList = new ArrayList<RoomData>();
+        try {
+            JSONArray jsonArray = new JSONArray(jsonData);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObj = jsonArray.getJSONObject(i);
+
+                RoomData roomData = new RoomData();
+                roomData.setRoomId(String.valueOf(jsonObj.getInt("room_id")));
+//                roomData.setRoomImage(BitmapFactory.decodeResource()
+                roomData.setRoomName(jsonObj.getString("name"));
+                roomList.add(roomData);
+            }
+        } catch (JSONException e) {
+            // TODO: 解析失敗時の対応は、後で検討
+            e.printStackTrace();
+        }
+
+        return roomList;
     }
 }
