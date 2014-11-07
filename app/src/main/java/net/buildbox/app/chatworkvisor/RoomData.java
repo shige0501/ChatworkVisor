@@ -9,7 +9,7 @@ import android.graphics.Bitmap;
  */
 public class RoomData {
     private String roomId;
-    private Bitmap roomImage;
+    private String roomImage;
     private String roomName;
 
     /**
@@ -35,7 +35,7 @@ public class RoomData {
      *
      * @param image     チャットルーム画像
      */
-    public void setRoomImage(Bitmap image) {
+    public void setRoomImage(String image) {
         roomImage = image;
     }
 
@@ -44,7 +44,7 @@ public class RoomData {
      *
      * @return  チャットルーム画像
      */
-    public Bitmap getRoomImage() {
+    public String getRoomImage() {
         return roomImage;
     }
 

@@ -9,17 +9,21 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 /**
  * Created by shige on 11/7/14.
  */
 public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder>{
+    private Context mContext;
     private LayoutInflater mLayoutInflater;
     private ArrayList<RoomData> mDataList;
 
     public RoomAdapter(Context context, ArrayList<RoomData> dataList) {
         super();
+        mContext = context;
         mLayoutInflater = LayoutInflater.from(context);
         mDataList = dataList;
     }
@@ -34,8 +38,10 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder>{
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         // チャットルーム画像の設定
-        viewHolder.iv_room.setImageBitmap(
-                mDataList.get(position).getRoomImage());
+
+        Picasso.with(mContext)
+                .load(mDataList.get(position).getRoomImage())
+                .into(viewHolder.iv_room);
 
         // チャットルーム名の設定
         String data = (String) mDataList.get(position).getRoomName();

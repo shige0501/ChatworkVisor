@@ -132,9 +132,10 @@ public class ChatworkRooms {
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObj = jsonArray.getJSONObject(i);
 
+                // ルームID, チャットルームアイコン, チャットルーム名の取得
                 RoomData roomData = new RoomData();
                 roomData.setRoomId(String.valueOf(jsonObj.getInt("room_id")));
-//                roomData.setRoomImage(BitmapFactory.decodeResource()
+                roomData.setRoomImage(jsonObj.getString("icon_path"));
                 roomData.setRoomName(jsonObj.getString("name"));
                 roomList.add(roomData);
             }
