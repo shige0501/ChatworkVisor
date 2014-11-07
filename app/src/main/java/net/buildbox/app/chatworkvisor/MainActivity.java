@@ -1,11 +1,16 @@
 package net.buildbox.app.chatworkvisor;
 
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -23,6 +28,20 @@ public class MainActivity extends ActionBarActivity {
         } else {
             Toast.makeText(this, R.string.login_ok, Toast.LENGTH_SHORT).show();
         }
+
+        // RecyclerViewの設定
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.roomview);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setHasFixedSize(true);
+
+        // アダプタの設定
+        RoomData roomData = new RoomData();
+        roomData.setRoomImage(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher));
+        roomData.setRoomName("チャットルーム");
+
+        ArrayList<RoomData> roomList = new ArrayList<RoomData>();
+        roomList.add(roomData);
+        recyclerView.setAdapter(new RoomAdapter(this, roomList));
     }
 
     /**
